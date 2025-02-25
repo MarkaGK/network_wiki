@@ -16,7 +16,12 @@ jobs:
       # Шаг 1: Проверка кода
       - name: Checkout code
         uses: actions/checkout@v3
-
+        
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r network_wiki/services/backend/requirements.txt
+          
       # Шаг 2: Установка Docker Compose
       - name: Set up Docker Compose
         run: |
@@ -31,6 +36,9 @@ jobs:
       - name: Start Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d
+      - name: Run tests
+        run: |
+          pytest network_wiki/services/backend/tests/
       # Шаг 8: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
