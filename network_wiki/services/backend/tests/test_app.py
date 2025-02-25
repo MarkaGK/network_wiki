@@ -6,7 +6,7 @@ BASE_URL = "http://flask_app:8000"
 
 @pytest_asyncio.fixture
 async def async_client():
-    async with AsyncClient(base_url=BASE_URL) as client:
+    async with AsyncClient(base_url=http://flask_app:8000) as client:
         yield client
 
 @pytest.mark.asyncio
