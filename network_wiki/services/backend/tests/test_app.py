@@ -2,11 +2,11 @@ import pytest
 import pytest_asyncio
 from httpx import AsyncClient
 
-BASE_URL = "http://0.0.0.0:8000"
+BASE_URL = "http://flask_app:8000"
 
 @pytest_asyncio.fixture
 async def async_client():
-    async with AsyncClient(base_url="http://0.0.0.0:8000") as client:
+    async with AsyncClient(base_url=BASE_URL) as client:
         yield client
 
 @pytest.mark.asyncio
