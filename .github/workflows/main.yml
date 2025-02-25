@@ -36,6 +36,7 @@ jobs:
       - name: Start Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d
+          sleep 10
       - name: Run tests
         run: |
           pytest network_wiki/services/backend/tests/
