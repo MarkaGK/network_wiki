@@ -40,7 +40,7 @@ jobs:
       - name: Wait for Flask app to start
         run: |
           sleep 10  # Подождите 10 секунд перед запуском тестов
-          curl --retry 5 --retry-delay 5 --retry-all-errors http://0.0.0.0:8000/uso/uso
+          curl --retry 5 --retry-delay 5 --retry-all-errors http://localhost:8000/uso/uso
           
       - name: Run tests
         run: |
