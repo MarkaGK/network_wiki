@@ -10,6 +10,8 @@ services:
     volumes:
       - './services/backend/src:/app'
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      FLASK_ENV: development
     networks:
       - app_network
       - db_network
