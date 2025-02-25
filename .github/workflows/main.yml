@@ -38,7 +38,7 @@ jobs:
           docker-compose -f network_wiki/docker-compose.yaml up -d
       - name: Run tests
         run: |
-          network_wiki/docker-compose.yaml exec flask_app services/backend/tests/
+          network_wiki/docker-compose.yaml exec flask_app pytest services/backend/tests/
       # Шаг 8: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
