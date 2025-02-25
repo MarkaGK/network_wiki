@@ -26,13 +26,13 @@ jobs:
       # Шаг 4: Сборка контейнеров
       - name: Build Docker containers
         run: |
-          docker-compose -f docker-compose.yml build
+          docker-compose -f /home/runner/work/network_wiki/network_wiki/docker-compose.yml build
       # Шаг 5: Запуск контейнеров
       - name: Start Docker containers
         run: |
-          docker-compose -f docker-compose.yml up -d
+          docker-compose -f /home/runner/work/network_wiki/network_wiki/docker-compose.yml up -d
       # Шаг 8: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
         run: |
-          docker-compose -f docker-compose.yml down
+          docker-compose -f /home/runner/work/network_wiki/network_wiki/docker-compose.yml down
