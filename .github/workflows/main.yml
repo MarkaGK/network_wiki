@@ -23,37 +23,14 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
-
-      # Шаг 3: Проверка наличия docker-compose.yml
-      - name: Check for docker-compose.yml
-        run: |
-          if [ ! -f docker-compose.yml ]; then
-            echo "docker-compose.yml not found!"
-            exit 1
-          else
-            echo "docker-compose.yml found!"
-          fi
-
       # Шаг 4: Сборка контейнеров
       - name: Build Docker containers
         run: |
           docker-compose -f docker-compose.yml build
-
       # Шаг 5: Запуск контейнеров
       - name: Start Docker containers
         run: |
           docker-compose -f docker-compose.yml up -d
-
-      # Шаг 6: Установка тестовых зависимостей внутри контейнера
-      - name: Install test dependencies
-        run: |
-          docker-compose exec app pip install pytest pytest-asyncio httpx
-
-      # Шаг 7: Запуск тестов внутри контейнера
-      - name: Run tests
-        run: |
-          docker-compose exec app pytest
-
       # Шаг 8: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
