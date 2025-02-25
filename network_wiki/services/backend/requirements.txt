@@ -8,3 +8,5 @@ fastapi==0.115.8
 uvicorn
 asyncpg
 pydantic==2.10.6
+httpx
+pytest-asyncio
