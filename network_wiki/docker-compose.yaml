@@ -63,6 +63,7 @@ services:
 
 networks:
   app_network:
+    driver: bridge
   db_network:
 
 #networks:
