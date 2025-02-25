@@ -22,13 +22,13 @@ jobs:
 
       - name: Build Docker
         run: |
-          docker-compose -f /network_wiki/docker-compose.yml build
-          docker-compose -f /network_wiki/docker-compose.yml push
+          docker-compose -f network_wiki/network_wiki/docker-compose.yml build
+          docker-compose -f network_wiki/network_wiki/docker-compose.yml push
       - name: Start Docker Compose services
         run: |
-          docker-compose -f /network_wiki/docker-compose.yml up -d
+          docker-compose -f network_wiki/network_wiki/docker-compose.yml up -d
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
         run: |
-          docker-compose -f /network_wiki/docker-compose.yml down
+          docker-compose -f network_wiki/network_wiki/docker-compose.yml down
 
