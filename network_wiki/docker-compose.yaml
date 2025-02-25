@@ -1,0 +1,70 @@
+services:
+
+  backend:
+    build:
+      context: services/backend
+    stop_signal: SIGKILL
+    container_name: flask_app
+    ports:
+      - 8000:8000
+    volumes:
+      - './services/backend/src:/app'
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+    networks:
+      - app_network
+      - db_network
+
+#  frontend:
+#    build: ./services/frontend
+#    volumes:
+#      - './services/frontend:/app'
+#      - '/app/node_modules'
+#    ports:
+#      - 8080:8080
+#    networks:
+#      - app_network
+#      - db_network
+
+  postgres:
+    container_name: database_postgres
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=networks_db
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - 5432:5432
+    volumes:
+      - ./db2/:/var/lib/postgresql/data
+      - ./db2/:/var/lib/postgresql/log_db
+    command:
+      postgres -c log_destination=stderr
+               -c logging_collector=on
+               -c log_directory=log_db
+#    networks:
+#      - my_bridge_network
+    networks:
+      - db_network
+      - app_network
+
+#  pgadmin:
+#    image: dpage/pgadmin4:4.28
+#    environment:
+#      PGADMIN_DEFAULT_PASSWORD: password
+#      PGADMIN_DEFAULT_EMAIL: admin@domain.com
+#    ports:
+#      - 80:80
+#    volumes:
+#      - pgadmin:/var/lib/pgadmin
+#
+#  volumes:
+#    pgdata:
+#    pgadmin:
+
+networks:
+  app_network:
+  db_network:
+
+#networks:
+#  my_bridge_network:
+#    driver: bridge

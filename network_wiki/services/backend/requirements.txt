@@ -1,0 +1,10 @@
+requests
+sqlalchemy
+flasgger==0.9.7.1
+apispec-webframeworks
+apispec
+alembic
+fastapi==0.115.8
+uvicorn
+asyncpg
+pydantic==2.10.6
