@@ -31,6 +31,9 @@ jobs:
       - name: Start Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d
+      - name: Run tests
+        run: |
+          pytest network_wiki/servisec/backend/tests/test_app.py
       # Шаг 8: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
