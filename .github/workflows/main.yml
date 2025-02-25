@@ -14,6 +14,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3  # Шаг 1: Клонирование репозитория
-      - name: Build Docker image
+
+      - name: Build Docker
         run: |
-          docker compose up
+          docker-compose -f docker-compose.yml build
+          docker-compose -f docker-compose.yml push
+      - name: Start Docker Compose services
+        run: |
+          docker-compose -f docker-compose.yml up -d
+
