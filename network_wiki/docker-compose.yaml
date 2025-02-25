@@ -19,7 +19,7 @@ services:
     build: ./services/backend
     command: pytest services/backend/tests/
     depends_on:
-      - flask_app
+      - backend
     networks:
       - app_network
       - test_network
