@@ -43,7 +43,7 @@ jobs:
           
       - name: Check Flask app logs
         run: |
-          docker-compose logs flask_app
+          network_wiki/docker-compose.yaml logs flask_app
       - name: Run tests
         run: |
           pytest network_wiki/services/backend/tests/
