@@ -36,7 +36,16 @@ jobs:
       - name: Start Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d
-          sleep 10
+          
+      - name: Wait for Flask app to start
+        run: |
+          sleep 10  # Подождите 10 секунд перед запуском тестов
+
+      # Шаг 5: Проверка логов Flask-приложения
+      - name: Check Flask app logs
+        run: |
+          docker-compose logs flask_app
+          
       - name: Run tests
         run: |
           pytest network_wiki/services/backend/tests/
