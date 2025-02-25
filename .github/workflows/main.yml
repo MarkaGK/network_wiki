@@ -33,7 +33,7 @@ jobs:
           docker-compose -f network_wiki/docker-compose.yaml up -d
       - name: Run tests
         run: |
-          pytest network_wiki/services/backend/tests/test_app.py
+          pytest network_wiki/services/backend/tests/
       # Шаг 8: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
