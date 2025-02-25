@@ -13,7 +13,16 @@ services:
     networks:
       - app_network
       - db_network
-
+      - test_network
+  
+  tests:
+    build: ./services/backend
+    command: pytest services/backend/tests/
+    depends_on:
+      - flask_app
+    networks:
+      - app_network
+      - test_network
 #  frontend:
 #    build: ./services/frontend
 #    volumes:
@@ -64,6 +73,7 @@ services:
 networks:
   app_network:
   db_network:
+  test_network:
 
 #networks:
 #  my_bridge_network:
