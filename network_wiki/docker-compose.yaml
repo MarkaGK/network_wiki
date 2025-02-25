@@ -14,12 +14,6 @@ services:
       - app_network
       - db_network
 
-
-  tests:
-    build: .
-    command: pytest services/backend/tests/
-    depends_on:
-      - backend
 #  frontend:
 #    build: ./services/frontend
 #    volumes:
