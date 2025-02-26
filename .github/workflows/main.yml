@@ -1,3 +1,4 @@
+
 name: CI Pipeline
 
 on:
@@ -11,9 +12,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
-      # Шаг 1: Проверка кода
+      # Шаг: Проверка кода
       - name: Checkout code
         uses: actions/checkout@v3
         
@@ -22,42 +23,40 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r network_wiki/services/backend/requirements.txt
           
-      # Шаг 2: Установка Docker Compose
+      # Шаг: Установка Docker Compose
       - name: Set up Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
-      # Шаг 3: Сборка контейнеров
+      # Шаг: Сборка контейнеров
       - name: Build Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml build
-
-      # Шаг 4: Запуск контейнера с базой данных (PostgreSQL)
       - name: Start PostgreSQL
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d postgres
-
-      # Шаг 5: Ожидание загрузки базы данных
+          
       - name: Wait for PostgreSQL to start
         run: |
           echo "Waiting for PostgreSQL to start..."
           until docker-compose -f network_wiki/docker-compose.yaml exec postgres pg_isready -U admin -d networks_db; do
-          echo "PostgreSQL is not ready yet. Retrying in 5 seconds..."
-          sleep 5
+            echo "PostgreSQL is not ready yet. Retrying in 5 seconds..."
+            sleep 5
           done
           echo "PostgreSQL is ready!"
-          
-      # Шаг 6: Запуск контейнера с приложением
       - name: Start application
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d backend
-
-        # Шаг 7: Запуск тестов
+      # - name: Wait for application to start
+      #   run: |
+      #     echo "Waiting for application to start..."
+      #     sleep 15  # Подождите 15 секунд
+      #     curl --retry 5 --retry-delay 5 --retry-all-errors http://0.0.0.0:8000/uso/uso
+             
       - name: Run tests
         run: |
-          docker-compose -f network_wiki/docker-compose.yaml exec backend pytest
-          
+          pytest network_wiki/services/backend/tests/
       # Шаг 8: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
