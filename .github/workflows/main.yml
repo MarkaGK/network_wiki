@@ -32,16 +32,13 @@ jobs:
       - name: Build Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml build
-      - name: Start PostgreSQL
-        run: |
-          docker-compose -f network_wiki/docker-compose.yaml up -d postgres
-          
-   # Шаг 3: Запуск контейнера с базой данных (PostgreSQL)
+
+      # Шаг 4: Запуск контейнера с базой данных (PostgreSQL)
       - name: Start PostgreSQL
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d postgres
 
-        # Шаг 4: Ожидание загрузки базы данных
+      # Шаг 5: Ожидание загрузки базы данных
       - name: Wait for PostgreSQL to start
         run: |
           echo "Waiting for PostgreSQL to start..."
@@ -51,17 +48,17 @@ jobs:
           done
           echo "PostgreSQL is ready!"
           
-        # Шаг 5: Запуск контейнера с приложением
+      # Шаг 6: Запуск контейнера с приложением
       - name: Start application
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d backend
 
-        # Шаг 6: Запуск тестов
+        # Шаг 7: Запуск тестов
       - name: Run tests
         run: |
-          docker-compose exec flask_app services/backend/tests/
+          docker-compose -f network_wiki/docker-compose.yaml exec backend pytest
           
-      # Шаг 7: Остановка контейнеров
+      # Шаг 8: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
         run: |
