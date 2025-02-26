@@ -12,9 +12,9 @@ services:
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
     environment:
       FLASK_ENV: development
-    # networks:
-    #   - app_network
-    #   - db_network
+    networks:
+      - app_network
+      - db_network
   
 #  frontend:
 #    build: ./services/frontend
@@ -45,9 +45,9 @@ services:
                -c log_directory=log_db
 #    networks:
 #      - my_bridge_network
-    # networks:
-    #   - db_network
-    #   - app_network
+    networks:
+      - db_network
+      - app_network
 
 #  pgadmin:
 #    image: dpage/pgadmin4:4.28
@@ -63,10 +63,9 @@ services:
 #    pgdata:
 #    pgadmin:
 
-# networks:
-#   app_network:
-#     driver: bridge
-#   db_network:
+networks:
+  app_network:
+  db_network:
 
 #networks:
 #  my_bridge_network:
