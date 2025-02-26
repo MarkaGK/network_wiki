@@ -54,7 +54,7 @@ jobs:
       - name: Check running containers second
         run: |
           sleep 10
-          docker-compose -f network_wiki/docker-compose.yaml ps
+          docker-compose -f network_wiki/docker-compose.yaml ps -a
       
           
       # - name: Run tests
