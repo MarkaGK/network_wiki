@@ -28,18 +28,38 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
-      # Шаг 4: Сборка контейнеров
+      # Шаг 3: Сборка контейнеров
       - name: Build Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml build
-      # Шаг 5: Запуск контейнеров
+      - name: Start PostgreSQL
+        run: |
+          docker-compose -f network_wiki/docker-compose.yaml up -d postgres
+
+      # Шаг 4: Запуск контейнеров
       - name: Start Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d
+      - name: Wait for PostgreSQL to start
+        run: |
+          echo "Waiting for PostgreSQL to start..."
+          until docker-compose -f network_wiki/docker-compose.yaml exec postgres pg_isready -U admin -d networks_db; do
+          echo "PostgreSQL is not ready yet. Retrying in 5 seconds..."
+          sleep 5
+          done
+          echo "PostgreSQL is ready!"
+          
+        # Шаг 5: Запуск контейнера с приложением
+      - name: Start application
+        run: |
+          docker-compose -f network_wiki/docker-compose.yaml up -d backend
+
+        # Шаг 6: Запуск тестов
       - name: Run tests
         run: |
           docker-compose exec flask_app services/backend/tests/
-      # Шаг 8: Остановка контейнеров
+          
+      # Шаг 7: Остановка контейнеров
       - name: Stop Docker containers
         if: always()  # Останавливает контейнеры даже если тесты упали
         run: |
