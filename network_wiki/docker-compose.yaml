@@ -1,17 +1,5 @@
 services:
 
-  backend:
-    build:
-      context: services/backend
-    stop_signal: SIGKILL
-    container_name: flask_app
-    ports:
-      - 8000:8000
-    volumes:
-      - './services/backend/src:/app'
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-
-
   postgres:
     container_name: database_postgres
     image: postgres:latest
@@ -28,3 +16,15 @@ services:
       postgres -c log_destination=stderr
                -c logging_collector=on
                -c log_directory=log_db
+
+  backend:
+    build:
+      context: services/backend
+    stop_signal: SIGKILL
+    container_name: flask_app
+    ports:
+      - 8000:8000
+    volumes:
+      - './services/backend/src:/app'
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
