@@ -53,7 +53,7 @@ jobs:
 
       - name: Check running containers second
         run: |
-          docker-compose logs backend
+          docker-compose network_wiki/docker-compose.yaml logs backend
           sleep 10
           docker-compose -f network_wiki/docker-compose.yaml ps -a
       
