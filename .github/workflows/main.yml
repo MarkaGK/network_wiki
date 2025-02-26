@@ -35,11 +35,13 @@ jobs:
       - name: Start PostgreSQL
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d postgres
-
-      # Шаг 4: Запуск контейнеров
-      - name: Start Docker containers
+          
+   # Шаг 3: Запуск контейнера с базой данных (PostgreSQL)
+      - name: Start PostgreSQL
         run: |
-          docker-compose -f network_wiki/docker-compose.yaml up -d
+          docker-compose -f network_wiki/docker-compose.yaml up -d postgres
+
+        # Шаг 4: Ожидание загрузки базы данных
       - name: Wait for PostgreSQL to start
         run: |
           echo "Waiting for PostgreSQL to start..."
