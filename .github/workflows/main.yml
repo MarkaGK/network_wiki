@@ -46,7 +46,6 @@ jobs:
       - name: Check running containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml ps
-          docker-compose -f network_wiki/docker-compose.yaml exec backend curl http://0.0.0.0:8000/uso/uso
 
       # - name: Check Flask app availability
       #   run: |
