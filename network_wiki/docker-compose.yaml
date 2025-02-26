@@ -3,16 +3,12 @@ services:
   backend:
     build:
       context: services/backend
-    stop_signal: SIGKILL
     container_name: flask_app
     ports:
       - 8000:8000
     volumes:
       - './services/backend/src:/app'
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-    environment:
-      - FLASK_APP=main.py
-      - FLASK_ENV=development
     networks:
       - app_network
       - db_network
@@ -66,7 +62,9 @@ services:
 
 networks:
   app_network:
+    driver: bridge
   db_network:
+    driver: bridge
 
 #networks:
 #  my_bridge_network:
