@@ -39,7 +39,7 @@ jobs:
 
       - name: Check Flask app logs
         run: |
-          docker-compose -f network_wiki/docker-compose.yaml logs flask_app
+          docker-compose -f network_wiki/docker-compose.yaml logs backend
           
       - name: Wait for Flask app to start
         run: |
