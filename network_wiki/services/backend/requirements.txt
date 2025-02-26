@@ -10,3 +10,4 @@ asyncpg
 pydantic==2.10.6
 httpx
 pytest-asyncio
+black
