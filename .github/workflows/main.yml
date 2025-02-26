@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
       # Шаг: Проверка кода
       - name: Checkout code
