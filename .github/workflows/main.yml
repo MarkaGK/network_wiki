@@ -48,6 +48,7 @@ jobs:
       - name: Старт контейнера FastApi
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d backend
+          sleep 15
              
       - name: Запуск тестов
         run: |
