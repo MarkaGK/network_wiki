@@ -37,9 +37,9 @@ jobs:
         run: |
           docker-compose -f network_wiki/docker-compose.yaml up -d
 
-      - name: Check Flask app logs
-        run: |
-          docker-compose -f network_wiki/docker-compose.yaml logs network_wiki-backend
+      # - name: Check Flask app logs
+      #   run: |
+      #     docker-compose -f network_wiki/docker-compose.yaml logs network_wiki-backend
           
       # - name: Wait for Flask app to start
       #   run: |
@@ -49,6 +49,7 @@ jobs:
       - name: Check running containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml ps
+          docker-compose -f network_wiki/docker-compose.yaml exec flask_app curl http://0.0.0.0:8000/uso/uso
 
       - name: Check Flask app availability
         run: |
