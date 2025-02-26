@@ -46,6 +46,10 @@ jobs:
       - name: Check running containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml ps
+      - name: Wait for PostgreSQL to start
+        run: |
+          echo "Waiting for PostgreSQL to start..."
+          sleep 30  # Подождите 30 секунд
 
       # - name: Check Flask app availability
       #   run: |
