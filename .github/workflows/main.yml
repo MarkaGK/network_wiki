@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Шаг 1: Проверка кода
+      # Шаг: Проверка кода
       - name: Checkout code
         uses: actions/checkout@v3
         
@@ -22,27 +22,40 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r network_wiki/services/backend/requirements.txt
           
-      # Шаг 2: Установка Docker Compose
+      # Шаг: Установка Docker Compose
       - name: Set up Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
-      # Шаг 4: Сборка контейнеров
+      # Шаг: Сборка контейнеров
       - name: Build Docker containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml build
-      # Шаг 5: Запуск контейнеров
-      - name: Start Docker containers
-        run: |
-          docker-compose -f network_wiki/docker-compose.yaml up -d
 
-      # - name: Check Flask app logs
-      #   run: |
-      #     docker-compose -f network_wiki/docker-compose.yaml logs network_wiki-backend
+      - name: Start PostgreSQL
+        run: |
+          docker-compose -f network_wiki/docker-compose.yaml up -d postgres
           
-      #     curl --retry 5 --retry-delay 5 --retry-all-errors http://0.0.0.0:8000/uso/uso
-          
+      - name: Wait for PostgreSQL to start
+        run: |
+          echo "Waiting for PostgreSQL to start..."
+          until docker-compose -f network_wiki/docker-compose.yaml exec postgres pg_isready -U admin -d networks_db; do
+            echo "PostgreSQL is not ready yet. Retrying in 5 seconds..."
+            sleep 5
+          done
+          echo "PostgreSQL is ready!"
+
+      - name: Start application
+        run: |
+          docker-compose -f network_wiki/docker-compose.yaml up -d backend
+
+      - name: Wait for application to start
+        run: |
+          echo "Waiting for application to start..."
+          sleep 15  # Подождите 15 секунд
+          curl --retry 5 --retry-delay 5 --retry-all-errors http://0.0.0.0:8000/uso/uso
+
       - name: Check running containers
         run: |
           docker-compose -f network_wiki/docker-compose.yaml ps
@@ -50,10 +63,6 @@ jobs:
         run: |
           echo "Waiting for PostgreSQL to start..."
           sleep 30  # Подождите 30 секунд
-
-      # - name: Check Flask app availability
-      #   run: |
-      #     curl http://0.0.0.0:8000/uso/uso
 
       - name: Check running containers second
         run: |
