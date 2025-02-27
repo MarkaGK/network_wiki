@@ -3,7 +3,6 @@
 Предварительное создание таблиц и наполнением их данными
 """
 
-
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 import manuals
@@ -105,5 +104,3 @@ def home():
 app.include_router(manuals.router)
 app.include_router(network_hardware_config_files.router)
 app.include_router(uso.router)
-
-

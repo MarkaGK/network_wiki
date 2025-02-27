@@ -7,7 +7,9 @@ from sqlalchemy import select, update, delete
 from models import USOFiber, USOL2VPN
 from database import async_session_maker
 from schemas import USOUpdate, USOCreate
+
 router = APIRouter(prefix="/uso", tags=["uso"])
+
 
 @router.get("/uso")
 async def get_uso():
@@ -16,6 +18,7 @@ async def get_uso():
     :return: Text
     """
     return "USO OK"
+
 
 @router.get("/l2vpn", status_code=201)
 async def get_uso_l2vpn():
@@ -27,6 +30,7 @@ async def get_uso_l2vpn():
         result = await session.execute(select(USOL2VPN))
         all_uso = result.scalars().all()
         return all_uso
+
 
 @router.post("/l2vpn")
 async def add_uso_l2vpn(model: USOCreate):
@@ -42,7 +46,7 @@ async def add_uso_l2vpn(model: USOCreate):
                 number_uso=model.number_uso,
                 type_uso=model.type_uso,
                 address=model.address,
-                contact=model.contact
+                contact=model.contact,
             )
             session.add(new_uso)
             await session.commit()
@@ -71,7 +75,7 @@ async def update_uso_l2vpn(uso_id: int, item: USOUpdate):
                     number_uso=item.number_uso,
                     type_uso=item.type_uso,
                     address=item.address,
-                    contact=item.contact
+                    contact=item.contact,
                 )
             )
             await session.execute(stmt)
@@ -93,10 +97,7 @@ async def delete_uso_l2vpn(uso_id: int):
             if uso_id not in cur_uso_id.scalars().all():
                 return "USO not found", 404
 
-            stmt = (
-                delete(USOL2VPN)
-                .where(USOL2VPN.id == uso_id)
-            )
+            stmt = delete(USOL2VPN).where(USOL2VPN.id == uso_id)
             await session.execute(stmt)
             await session.commit()
 
@@ -129,7 +130,7 @@ async def add_uso_fiber(model: USOCreate):
                 number_uso=model.number_uso,
                 type_uso=model.type_uso,
                 address=model.address,
-                contact=model.contact
+                contact=model.contact,
             )
             session.add(new_uso)
             await session.commit()
@@ -149,12 +150,8 @@ async def delete_uso_fiber(uso_id: int):
             if uso_id not in cur_uso_id.scalars().all():
                 return "USO not found", 404
 
-            stmt = (
-                delete(USOL2VPN)
-                .where(USOL2VPN.id == uso_id)
-            )
+            stmt = delete(USOL2VPN).where(USOL2VPN.id == uso_id)
             await session.execute(stmt)
             await session.commit()
 
     return "Uso deleted", 201
-

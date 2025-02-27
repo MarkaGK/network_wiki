@@ -8,6 +8,7 @@ from httpx import AsyncClient
 
 BASE_URL = "http://0.0.0.0:8000"
 
+
 @pytest_asyncio.fixture
 async def async_client():
     """
@@ -24,4 +25,3 @@ async def test_ping(async_client):
     """
     response = await async_client.get(f"{BASE_URL}/uso/uso")
     assert response.status_code == 200
-

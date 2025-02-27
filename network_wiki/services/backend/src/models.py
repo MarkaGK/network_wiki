@@ -2,7 +2,6 @@
 Этот модуль описывающий таблицы и их поля
 """
 
-
 from sqlalchemy import (
     Column,
     Integer,
