@@ -20,13 +20,13 @@ class USOCreate(USOModels):
     """
     Класс валидации при добавлении нового USO
     """
-    pass
+
 
 class USOUpdate(USOModels):
     """
     Класс валидации при обновлении USO
     """
-    pass
+
 
 class USOItem(USOModels):
     """

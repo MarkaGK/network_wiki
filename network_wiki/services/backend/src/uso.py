@@ -10,7 +10,7 @@ from schemas import USOUpdate, USOCreate
 router = APIRouter(prefix="/uso", tags=["uso"])
 
 @router.get("/uso")
-async def get_network_hardware_config_files():
+async def get_uso():
     """
     Базовый эндпоинт для проверки доступности
     :return: Text
@@ -18,7 +18,7 @@ async def get_network_hardware_config_files():
     return "USO OK"
 
 @router.get("/l2vpn", status_code=201)
-async def get_uso_fiber():
+async def get_uso_l2vpn():
     """
     Эндпоинт который возвращает список всех USO из таблицы L2VPN
     :return: list
