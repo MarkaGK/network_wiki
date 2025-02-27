@@ -10,7 +10,7 @@ from httpx import AsyncClient
 BASE_URL = "http://0.0.0.0:8000"
 
 @pytest_asyncio.fixture
-async def create_async_client():
+async def async_client():
     """
     Создание асинхронного клиента для дальнейшего подключения и проверок
     :return:
@@ -25,6 +25,7 @@ async def test_ping(async_client):
     :param async_client:
     :return:
     """
-    response = await async_client.get(f"{BASE_URL}/uso/uso")
+    client = async_client
+    response = await client.get(f"{BASE_URL}/uso/uso")
     assert response.status_code == 200
 
