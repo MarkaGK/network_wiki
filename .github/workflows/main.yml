@@ -58,6 +58,18 @@ jobs:
         run: |
           black network_wiki/services/backend
           
+      - name: Запуск теста с Pylint
+        run: |
+          pylint --init-hook="import sys; sys.path.append('network_wiki/services/backend/src')"
+
+      - name: Запуск теста с Flake8
+        run: |
+          flake8 network_wiki/services/backend
+
+      - name: Запуск теста с Isort
+        run: |
+          isort network_wiki/services/backend
+          
       - name: Остановка контейнеров Docker-Compose
         if: always()
         run: |
