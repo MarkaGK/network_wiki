@@ -60,7 +60,7 @@ jobs:
           
       - name: Запуск теста с Pylint
         run: |
-          pylint --init-hook="import sys; sys.path.append('network_wiki/services/backend/src/')" network_wiki/services/backend/src/
+          pylint --init-hook="import sys; sys.path.append('network_wiki/services/backend/src/')" --disable=redefined-outer-name network_wiki/services/backend/src/
 
       - name: Запуск теста с Flake8
         run: |

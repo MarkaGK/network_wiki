@@ -19,12 +19,12 @@ async def async_client():
         yield client
 
 @pytest.mark.asyncio
-async def test_ping(client: async_client):
+async def test_ping(async_client):
     """
     Проверка доступности эндпоинта
-    :param client
+    :param async_client
     :return:
     """
-    response = await client.get(f"{BASE_URL}/uso/uso")
+    response = await async_client.get(f"{BASE_URL}/uso/uso")
     assert response.status_code == 200
 
