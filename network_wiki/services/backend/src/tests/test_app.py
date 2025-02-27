@@ -10,7 +10,7 @@ from httpx import AsyncClient
 BASE_URL = "http://0.0.0.0:8000"
 
 @pytest_asyncio.fixture
-async def async_client():
+async def main_async_client():
     """
     Создание асинхронного клиента для дальнейшего подключения и проверок
     :return:
