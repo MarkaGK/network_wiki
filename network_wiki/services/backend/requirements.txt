@@ -11,3 +11,6 @@ pydantic==2.10.6
 httpx
 pytest-asyncio
 black
+isort
+flake8
+pylint
