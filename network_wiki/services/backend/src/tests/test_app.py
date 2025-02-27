@@ -23,7 +23,7 @@ async def test_ping(async_client):
     """
     Проверка доступности эндпоинта
     :param async_client
-    :return:
+    :return: response.status_code
     """
     response = await async_client.get(f"{BASE_URL}/uso/uso")
     assert response.status_code == 200
