@@ -5,4 +5,8 @@ router = APIRouter(prefix="/manuals", tags=["manuals"])
 
 @router.get("/manuals")
 async def manuals():
+    """
+    Базовый эндпоинт для проверки доступности
+    :return: Text
+    """
     return "manuals OK", 200

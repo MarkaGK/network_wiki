@@ -14,9 +14,3 @@ async def test_ping(async_client):
     response = await async_client.get(f"{BASE_URL}/uso/uso")
     assert response.status_code == 200
 
-# @pytest.mark.asyncio
-# async def test_echo():
-#     async with AsyncClient(app=app, base_url="http://test") as client:
-#         response = await client.post("/echo", json={"key": "value"})
-#     assert response.status_code == 200
-#     assert response.json() == {"key": "value"}

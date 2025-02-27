@@ -1,8 +1,10 @@
-from pydantic import BaseModel, EmailStr, Field
-from typing import List, Optional
+from pydantic import BaseModel
 
 
 class USOModels(BaseModel):
+    """
+    Модель необходимых данных для добавления в таблицы
+    """
     name_uso: str | None = None
     number_uso: int | None = None
     type_uso: int | None = None

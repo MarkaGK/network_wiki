@@ -6,12 +6,18 @@ from contextlib import asynccontextmanager
 
 
 async def fill_database():
+    """
+    Создает все таблицы
+    """
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
 
 async def seed_data():
+    """
+    Подключается к сессии и заполняет таблицы первичными данными
+    """
     async with async_session_maker() as session:
         async with session.begin():
             session.add_all(
@@ -65,6 +71,9 @@ async def seed_data():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """
+    Выполняет предварительные действия перед запуском FastApi
+    """
     print("Creating tables...")
     await fill_database()
     print("Seeding data...")
@@ -86,6 +95,10 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 def home():
+    """
+    Базовый эндпоинт для проверки доступности
+    :return: Text
+    """
     return "Hello, World!"
 
 

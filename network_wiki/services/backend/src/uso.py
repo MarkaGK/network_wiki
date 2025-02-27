@@ -8,10 +8,18 @@ router = APIRouter(prefix="/uso", tags=["uso"])
 
 @router.get("/uso")
 async def get_network_hardware_config_files():
+    """
+    Базовый эндпоинт для проверки доступности
+    :return: Text
+    """
     return "USO OK"
 
 @router.get("/l2vpn", status_code=201)
 async def get_uso_fiber():
+    """
+    Эндпоинт который возвращает список всех USO из таблицы L2VPN
+    :return: list
+    """
     async with async_session_maker() as session:
         result = await session.execute(select(USOL2VPN))
         all_uso = result.scalars().all()
@@ -19,6 +27,11 @@ async def get_uso_fiber():
 
 @router.post("/l2vpn")
 async def add_uso_l2vpn(model: USOCreate):
+    """
+    Эндпоинт который добавляет новый USO в таблицу L2VPN
+    :param model: USOCreate
+    :return: Text
+    """
     async with async_session_maker() as session:
         async with session.begin():
             new_uso = USOL2VPN(
@@ -35,6 +48,12 @@ async def add_uso_l2vpn(model: USOCreate):
 
 @router.put("/l2vpn/{uso_id}")
 async def update_uso_l2vpn(uso_id: int, item: USOUpdate):
+    """
+    Эндпоинт который обновляет запрашиваемый USO из таблицы L2VPN по id
+    :param uso_id: int
+    :param item: USOUpdate
+    :return: Text
+    """
     async with async_session_maker() as session:
         async with session.begin():
             cur_uso_id = await session.execute(select(USOL2VPN.id))
@@ -60,6 +79,11 @@ async def update_uso_l2vpn(uso_id: int, item: USOUpdate):
 
 @router.delete("/l2vpn/{uso_id}")
 async def delete_uso_l2vpn(uso_id: int):
+    """
+    Эндпоинт который удаляет запрашиваемый USO из таблицы L2VPN по id
+    :param uso_id: int
+    :return: Text
+    """
     async with async_session_maker() as session:
         async with session.begin():
             cur_uso_id = await session.execute(select(USOL2VPN.id))
@@ -78,6 +102,10 @@ async def delete_uso_l2vpn(uso_id: int):
 
 @router.get("/fiber", status_code=201)
 async def get_uso_fiber():
+    """
+    Эндпоинт который возвращает список всех USO в таблице USOFiber
+    :return: list
+    """
     async with async_session_maker() as session:
         result = await session.execute(select(USOFiber))
         all_uso = result.scalars().all()
@@ -86,6 +114,11 @@ async def get_uso_fiber():
 
 @router.post("/fiber")
 async def add_uso_fiber(model: USOCreate):
+    """
+    Эндпоинт который добавляет новый USO в таблицу USOFiber по id
+    :param model: USOCreate
+    :return: Text
+    """
     async with async_session_maker() as session:
         async with session.begin():
             new_uso = USOFiber(
@@ -100,13 +133,13 @@ async def add_uso_fiber(model: USOCreate):
     return "New Uso added", 201
 
 
-@router.put("/fiber")
-async def update_uso_fiber(model: USOUpdate):
-    pass
-
-
 @router.delete("/fiber/{uso_id}")
 async def delete_uso_fiber(uso_id: int):
+    """
+    Эндпоинт который удаляет USO из таблицы USOFiber по id
+    :param uso_id: int
+    :return: Text
+    """
     async with async_session_maker() as session:
         async with session.begin():
             cur_uso_id = await session.execute(select(USOL2VPN.id))

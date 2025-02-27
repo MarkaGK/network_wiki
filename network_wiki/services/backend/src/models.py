@@ -2,14 +2,7 @@ from sqlalchemy import (
     Column,
     Integer,
     String,
-    Sequence,
-    ForeignKey,
-    Boolean,
-    JSON,
-    func,
 )
-from sqlalchemy.orm import relationship
-from typing import Dict, Any
 from database import Base
 
 
