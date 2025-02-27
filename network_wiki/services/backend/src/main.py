@@ -78,7 +78,7 @@ async def seed_data():
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan():
     """
     Выполняет предварительные действия перед запуском FastApi
     """
