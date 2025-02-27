@@ -1,5 +1,5 @@
 """
-Этот модуль для запуска FastApi подключения роутов manuals; uso; netwrok_hardware
+Этот модуль для запуска FastApi подключения роутов manuals; uso; netwrok
 Предварительное создание таблиц и наполнением их данными
 """
 
@@ -54,7 +54,7 @@ async def seed_data():
                         name_uso="Bazalt",
                         number_uso=68,
                         type_uso=5,
-                        address="Tulskaya obl, Schekinskiy raion, stroitelnaya baza",
+                        address="Tulskaya obl, Schekinskiy raion,  baza",
                         contact="897768123851",
                     ),
                     USOL2VPN(
