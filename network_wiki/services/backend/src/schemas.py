@@ -1,7 +1,7 @@
 """
 Этот модуль предназначен для валидации данных
 """
-
+# pylint: disable=too-few-public-methods
 
 from pydantic import BaseModel
 
