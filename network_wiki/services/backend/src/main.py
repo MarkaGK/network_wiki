@@ -1,8 +1,16 @@
+"""
+Этот модуль для запуска FastApi подключения роутов manuals; uso; netwrok_hardware
+Предварительное создание таблиц и наполнением их данными
+"""
+
+
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
+import manuals
+import network_hardware_config_files
+import uso
 from database import engine, Base, async_session_maker
 from models import USOFiber, USOL2VPN
-import manuals, network_hardware_config_files, uso
-from contextlib import asynccontextmanager
 
 
 async def fill_database():
@@ -70,7 +78,7 @@ async def seed_data():
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(cur_app: FastAPI):
     """
     Выполняет предварительные действия перед запуском FastApi
     """
@@ -83,14 +91,6 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
-
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["http://localhost:8080"],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
 
 
 @app.get("/")

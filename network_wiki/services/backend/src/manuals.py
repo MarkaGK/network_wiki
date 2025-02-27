@@ -1,3 +1,9 @@
+"""
+Этот модуль для роутов manuals и эндпоинтов начинающихся с /manuals
+
+"""
+
+
 from fastapi import APIRouter
 
 

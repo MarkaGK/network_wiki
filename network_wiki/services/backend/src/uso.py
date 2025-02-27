@@ -1,6 +1,9 @@
+"""
+Этот модуль для роутов uso и эндпоинтов начинающихся с /uso
+"""
+
 from fastapi import APIRouter
 from sqlalchemy import select, update, delete
-
 from models import USOFiber, USOL2VPN
 from database import async_session_maker
 from schemas import USOUpdate, USOCreate

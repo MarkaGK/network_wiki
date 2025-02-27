@@ -1,3 +1,7 @@
+"""
+Этот модуль для роутов confiles и эндпоинтов начинающихся с /confiles
+"""
+
 from fastapi import APIRouter
 
 

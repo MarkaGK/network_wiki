@@ -1,3 +1,8 @@
+"""
+Этот модуль описывающий таблицы и их поля
+"""
+
+
 from sqlalchemy import (
     Column,
     Integer,
@@ -7,6 +12,9 @@ from database import Base
 
 
 class USOL2VPN(Base):
+    """
+    Table USOL2VPN
+    """
 
     __tablename__ = "usol2vpn"
 
@@ -18,9 +26,17 @@ class USOL2VPN(Base):
     contact = Column(String(100), nullable=False)
 
     def __repr__(self):
+        """
+        Возвращает информацию по USO
+        :return: Text
+        """
         return f"{self.id}, {self.name_uso}, {self.number_uso}, {self.address}, {self.contact}"
 
     def to_json(self):
+        """
+        Возвращает информацию по USO
+        :return: JSON
+        """
         return {
             item.name_uso: getattr(self, item.name_uso)
             for item in self.__table__.columns
@@ -28,6 +44,9 @@ class USOL2VPN(Base):
 
 
 class USOFiber(Base):
+    """
+    Table USOFiber
+    """
 
     __tablename__ = "usofiber"
 
@@ -39,9 +58,17 @@ class USOFiber(Base):
     contact = Column(String(100), nullable=False)
 
     def __repr__(self):
+        """
+        Возвращает информацию по USO
+        :return: Text
+        """
         return f"{self.id}, {self.name_uso}, {self.number_uso}, {self.address}, {self.contact}"
 
     def to_json(self):
+        """
+        Возвращает информацию по USO
+        :return: JSON
+        """
         return {
             item.name_uso: getattr(self, item.name_uso)
             for item in self.__table__.columns
