@@ -65,7 +65,13 @@ class USOFiber(Base):
         Возвращает информацию по USO
         :return: Text
         """
-        return f"{self.id}, {self.name_uso}, {self.number_uso}, {self.address}, {self.contact}"
+        return (
+            f"{self.id},"
+            f"{self.name_uso},"
+            f"{self.number_uso},"
+            f"{self.address},"
+            f"{self.contact}"
+        )
 
     def to_json(self):
         """
